@@ -39,17 +39,21 @@ jobs:
       with:
         version: 'latest'
 
-    - name: Set up Minikube (ensure connection to local Kubernetes cluster)
+    - name: Install Minikube
       run: |
-        echo "Setting up Minikube..."
-        minikube start
-        eval $(minikube -p minikube docker-env)  # Set up Docker to use Minikube's Docker daemon
+        curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.33.1/minikube-linux-amd64
+        chmod +x minikube
+        sudo mv minikube /usr/local/bin/
 
-    - name: Set kubeconfig (to interact with Minikube cluster)
+    - name: Start Minikube
+      run: |
+        minikube start
+
+    - name: Set kubeconfig
       run: |
         mkdir -p ~/.kube
-        cp /home/runner/.minikube/profiles/minikube/config ~/.kube/config  # Correct path to the kubeconfig file
-        kubectl config use-context minikube
+        minikube update-context  # This ensures that the kubeconfig is correctly updated
+        cp $(minikube -p minikube kubeconfig) ~/.kube/config  # Correct Minikube kubeconfig location
 
     - name: Apply Kubernetes deployment and service
       run: |
