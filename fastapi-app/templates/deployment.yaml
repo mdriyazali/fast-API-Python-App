@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-api-app
+  labels:
+    app: fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    metadata:
+      labels:
+        app: fastapi
+    spec:
+      containers:
+      - name: fastapi-app
+        image: "mdriyazali254362028/fastapi-app:latest"  # Ensure the image tag is specified
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000  # Make sure this matches the targetPort in service.yaml

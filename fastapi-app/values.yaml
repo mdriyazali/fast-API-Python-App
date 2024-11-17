@@ -1,0 +1,34 @@
+labels:
+  app: fastapi-api
+
+replicaCount: 1
+
+image:
+  repository: mdriyazali254362028/fastapi-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8000  # Ensure this matches containerPort in deployment.yaml
+
+# ServiceAccount configuration
+serviceAccount:
+  create: true  # Set to true if you want to create a service account
+  name: fastapi-api-serviceaccount  # Optional: specify a custom name for the service account
+
+# Ingress configuration
+ingress:
+  enabled: true  # Set to true if you want to enable Ingress
+  # Optionally, you can define other fields like host, path, etc.
+  # Example:
+  #   host: "your-app.example.com"
+  #   path: "/"
+
+# Autoscaling configuration
+autoscaling:
+  enabled: true  # Set to true if you want to enable autoscaling
+  minReplicas: 1  # Minimum number of replicas
+  maxReplicas: 3  # Maximum number of replicas
+  targetCPUUtilizationPercentage: 80  # Target CPU utilization percentage for scaling
