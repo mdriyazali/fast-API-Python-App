@@ -52,8 +52,8 @@ jobs:
     - name: Set kubeconfig
       run: |
         mkdir -p ~/.kube
-        minikube update-context  # This ensures that the kubeconfig is correctly updated
-        cp $(minikube -p minikube kubeconfig) ~/.kube/config  # Correct Minikube kubeconfig location
+        # Minikube automatically sets up the kubeconfig
+        minikube update-context
 
     - name: Apply Kubernetes deployment and service
       run: |
