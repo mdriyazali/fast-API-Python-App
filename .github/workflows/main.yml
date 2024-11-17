@@ -48,7 +48,7 @@ jobs:
     - name: Set kubeconfig (to interact with Minikube cluster)
       run: |
         mkdir -p ~/.kube
-        cp /home/runner/.minikube/config ~/.kube/config  # Ensure kubeconfig is set correctly
+        cp /home/runner/.minikube/profiles/minikube/config ~/.kube/config  # Correct path to the kubeconfig file
         kubectl config use-context minikube
 
     - name: Apply Kubernetes deployment and service
