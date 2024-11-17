@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  fastapi-app:
+    image: mdriyazali254362028/fastapi-app:latest
+    container_name: fastapi-app
+    ports:
+      - "8082:8000"  # Maps port 8000 inside the container to port 8080 on the host
+    restart: always
